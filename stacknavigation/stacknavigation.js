@@ -1,8 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from "/Users/omkarzende/reactnative/authapp/src/components/Home";
+import Home from "../src/components/Home";
 import Postdetails from "../src/postDetails";
+import Budget from "../src/budget";
+
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,15 @@ const MainStackNavigator = () => {
           component={Postdetails}
           options={{ headerShown: false }}
         />
+
+        <Stack.Screen
+          name="Budget"
+          component={Budget}
+          options={{ headerShown: false }}
+        />
+
+
+        
       </Stack.Navigator>
     );
 

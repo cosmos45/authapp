@@ -1,12 +1,15 @@
 import React, { Component, useState } from "react";
 import { Actions } from "react-native-router-flux";
 import axios from "axios";
-import { StyleSheet, Text, View, ImageBackground, Image, Button, ScrollView, TouchableOpacity, FlatList,  } from "react-native";
-import { SearchBar, Card, Avatar} from "react-native-elements";
+import { StyleSheet, Text, View, ImageBackground, Image,  ScrollView, TouchableOpacity, FlatList,  } from "react-native";
+import { SearchBar, Card, Avatar, Button, Icon} from "react-native-elements";
 import { Feather } from "react-native-vector-icons";
 import { CardFive, CardNine, CardSeven, CardEleven} from "react-native-card-ui";
+import Modal from 'react-native-modal';
+import Slider from "react-native-slider";
 
-const Home = ({navigation}) => {
+
+  const Home = ({navigation}) => {
   const handleRequest = () => {
     // This request will only succeed if the Authorization header
     // contains the API token
@@ -24,9 +27,7 @@ const Home = ({navigation}) => {
 
   const logo = require("../../assets/images/logoy.png");
 
-  const gotopost = () => {
-    navigation.navigate("Postdetails");
-  };
+ 
 
   const [gallery, setgallery] = useState([
     {
@@ -102,12 +103,20 @@ const Home = ({navigation}) => {
     },
   ]);
   
+  const [isModalVisible, setModalVisible] = useState(false);
+
   
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+
+  const [value, setValue] = useState(1000);
 
     
        const { buttonContainerStyle } = styles;
-
+       
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -172,7 +181,11 @@ const Home = ({navigation}) => {
               renderItem={({ item }) => {
                 return (
                   <View>
-                    <TouchableOpacity onPress={gotopost}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Postdetails',{
+                      paramKey: item.image1,
+                      paramKey1: item.title,
+
+                     })}>
                       <ImageBackground
                         source={item.image1}
                         style={{
@@ -202,6 +215,81 @@ const Home = ({navigation}) => {
               }}
             ></FlatList>
           </View>
+          <View>
+        
+      </View>
+          <View style={styles.square} >
+         
+              <Text style={styles.UserGreet3}> Make your vacation your way !</Text>
+              <Button
+              buttonStyle={{width:100, alignSelf:"center", marginTop:20, color:"white"}}
+              onPress={toggleModal}
+              title="Tap now"
+              titleStyle={{color:"white"}}
+              containerStyle={{color:"white"}}
+              
+              
+              
+              accessibilityLabel="click here to make your vacation"
+              />
+              <View style={{flex: 1}}>
+              <Modal isVisible={isModalVisible}
+              animationType="slide"
+              transparent={true}
+              //onBackdropPress={this.close}
+              >
+             
+                <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                
+                  <Text style={styles.budget}> Set the budget for your vacation !</Text>
+                  <Slider
+                  style={{width: 200, height: 30, borderRadius: 50}}
+                  step={1}
+
+                  value={value}
+                  minimumValue={1000}
+                  maximumValue={100000}
+                  minimumTrackTintColor="#1fb28a"
+                  maximumTrackTintColor="#d3d3d3"
+                  thumbTintColor="#b9e4c9"
+                  onValueChange={slideValue => setValue(slideValue)}
+                />
+                <Text style={{paddingBottom: 20}}>
+                  Value: Rs. {value}
+                </Text>
+
+                
+
+                 <View style={styles.fixToText}>
+                 <Icon
+                raised
+                name='check-circle-o'
+                type='font-awesome'
+                color='#1dbfa4'
+                size='36'
+                onPress={() => navigation.navigate('Budget',{
+                 paramkey3: value
+                 })}
+                 />
+                 <Icon
+                raised
+                name='times'
+                type='font-awesome'
+                color='#1dbfa4'
+                size='36'
+                onPress={toggleModal}
+                 />
+                 
+               </View>
+
+                </View>
+                </View>
+              </Modal>
+              </View>
+              
+          </View>
+          
           <Text style={styles.trending}> Top Journeys</Text>
           <View>
             <FlatList
@@ -341,13 +429,124 @@ const Home = ({navigation}) => {
 
 
 
-const styles = StyleSheet.create({
-  buttonContainerStyle: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-});
+            const styles = StyleSheet.create({
+
+
+              container: {
+                flex: 1,
+                backgroundColor: "#fff",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+              DarkOverlay: {
+                position: "absolute",
+                top: 0,
+                right: 0,
+                left: 0,
+                height: 370,
+                backgroundColor: "#000",
+                opacity: 0.3,
+                borderBottomRightRadius: 35,
+                borderBottomLeftRadius: 35,
+              },
+            
+              searchContainer: {
+                paddingTop: 375,
+                paddingLeft: 16,
+              },
+            
+              UserGreet: {
+                fontSize: 41,
+                fontWeight: "bold",
+                color: "white",
+                paddingLeft: 25,
+              },
+
+              UserGreet3: {
+                fontSize: 28,
+                fontWeight: "bold",
+                color: "white",
+                marginRight:20,
+                marginLeft:20,
+                marginTop: 20,
+                textAlign: "center",
+                
+              },
+              UserLocation: {
+                fontSize: 16,
+                fontWeight: "normal",
+                color: "white",
+                paddingTop: 140,
+                paddingLeft: 25,
+            
+              },
+            
+              trending:{
+                fontSize:25,
+                fontWeight:'bold',
+                paddingTop: 15,
+                paddingLeft: 25,
+            
+              },
+              scroll:{
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 15,
+              },
+              title:{
+                fontSize: 16,
+                fontWeight: "bold",
+            
+                color: "white",
+              },
+              card:{
+                borderRadius: 50,
+              },
+              square: {
+                margin: 10,
+                marginTop: 30,
+                width: 355,
+                height: 170,
+                backgroundColor: "#1dbfa4",
+                borderRadius: 25
+                
+              },
+
+              centeredView: {
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 22
+              },
+
+              modalView: {
+                margin: 20,
+                backgroundColor: "white",
+                borderRadius: 20,
+                padding: 35,
+                alignItems: "center",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 4,
+                elevation: 5
+              },
+
+              budget:{
+                fontSize: 25,
+                fontWeight: "bold",
+                color: "black",
+                textAlign: "center",
+                paddingBottom: 20,
+              },
+
+              fixToText: {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              },
+            });
 
 export default Home;

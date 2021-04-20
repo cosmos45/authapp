@@ -16,7 +16,7 @@ export default class visits extends Component {
   };
 
   getItems = () => {
-    fetch("http://172.20.10.3:8000/api/item")
+    fetch("http://192.168.43.108:8000/api/item")
       .then((results) => results.json())
       .then((results) => this.setState({ items: results }));
   };
@@ -26,7 +26,7 @@ export default class visits extends Component {
       <View style={styles.container}>
         {this.state.items.map(function (item, index) {
           return (
-            <>
+            <View style={{flex: 1}}>
               <Text h4 key={index}>
                 {item.title}
                 {"\n"}
@@ -36,17 +36,17 @@ export default class visits extends Component {
                 source={{ uri: `${item.image}` }}
                 style={{ width: "30%", height: 50, paddingTop: 90 }}
               />
-              
-            </>
-            
-           
+
+            </View>
+
+
           );
-        
+
         })}
-        
+
 
         <Text>Visit screen</Text>
-      
+
 
         <StatusBar style="auto" />
       </View>
@@ -63,5 +63,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-

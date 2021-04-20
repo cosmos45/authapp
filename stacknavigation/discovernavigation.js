@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import discover from "/Users/omkarzende/reactnative/authapp/src/discover";
-import Guides from "/Users/omkarzende/reactnative/authapp/src/guides";
+import discover from "../src/discover";
+import Guides from "../src/guides";
 
 const Stack = createStackNavigator();
 

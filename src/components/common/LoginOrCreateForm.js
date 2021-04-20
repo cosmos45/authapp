@@ -116,7 +116,7 @@ class LoginOrCreateForm extends Component {
               autoCorrect={false}
               autoCapitalize="none"
               onChangeText={this.onUsernameChange.bind(this)}
-              style={textInputStyle}
+              style={styles.inputStyle}
             />
           </View>
           <View style={fieldStyle}>
@@ -126,7 +126,7 @@ class LoginOrCreateForm extends Component {
               autoCorrect={false}
               placeholder="password"
               onChangeText={this.onPasswordChange.bind(this)}
-              style={textInputStyle}
+              style={styles.inputStyle}
             />
           </View>
           {this.renderCreateForm()}
@@ -149,9 +149,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  textInputStyle: {
-    flex: 1,
-    padding: 15,
+  
+  inputStyle: {
+    width: "100%",
+    marginBottom: 15,
+    paddingBottom: 15,
+    alignSelf: "center",
+    borderColor: "#ccc",
+    borderBottomWidth: 1,
   },
   fieldStyle: {
     flexDirection: "row",
