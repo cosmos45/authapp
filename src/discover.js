@@ -17,11 +17,6 @@ import { Feather } from "react-native-vector-icons";
 
 const discover = ({navigation}) => {
 
-  const gotofood = () => {
-    navigation.navigate('Guide');
-  };
-
-
 const explore = [
   {
     name: "Guides",
@@ -43,38 +38,12 @@ const explore = [
     name: "Spots",
     image2: require("../assets/explore/spots.jpg"),
   },
-  {
-    name: "Stories",
-    image2: require("../assets/explore/stories.jpg"),
-  },
+  
 ];
   return (
     <View>
       <ScrollView>
         
-        <SearchBar
-          lightTheme
-          autoCapitalize="none"
-          icon={{ type: "font-awesome", name: "search" }}
-          placeholder="Search destination"
-          placeholderTextColor="grey"
-          inputContainerStyle={{
-            backgroundColor: "white",
-            borderRadius: 10,
-          }}
-          containerStyle={{
-            backgroundColor: "transparent",
-            borderBottomColor: "transparent",
-            borderTopColor: "#212b4c",
-            paddingTop: 7,
-            display: "flex",
-            flex: 1,
-            width: 375,
-            height: 20,
-            paddingLeft: 10,
-            paddingRight: 10,
-          }}
-        />
         <View style={styles.scroll}>
           <FlatList
             vertical={true}
@@ -87,7 +56,25 @@ const explore = [
                     style={{
                       paddingTop: 10,
                     }}
-                    onPress={gotofood}
+
+                    onPress={ () => {
+                      if (item.name == "Guides") {
+                        navigation.navigate('Guide');
+                      }
+                      else if (item.name == "Food"){
+                        navigation.navigate('Food');
+                      }
+                      else if (item.name == "Locals"){
+                        navigation.navigate('Local');
+                      }
+                      else if (item.name == "Spots"){
+                        navigation.navigate('Spot');
+                      }
+                      else{
+                        navigation.navigate('City')
+                      }
+
+                    }}
                   >
                     <ImageBackground
                       source={item.image2}

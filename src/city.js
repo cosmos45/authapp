@@ -1,17 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, View, Image, ImageBackground, ScrollView, Dimensions, } from "react-native";
+import { StyleSheet, View, Image, ImageBackground, ScrollView, } from "react-native";
 import {Text} from 'react-native-elements';
 import Swiper from "react-native-swiper";
 import GradientButton from "react-native-gradient-buttons";
 
-export default class Guides extends Component {
+export default class City extends Component {
   constructor () {
     super();
     this.state = {
       items: [],
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
     };
   };
 
@@ -20,7 +18,7 @@ export default class Guides extends Component {
   };
 
   getItems = () => {
-    fetch("http://172.20.10.2:8000/api/guides")
+    fetch("http://172.20.10.2:8000/api/cities")
       .then((results) => results.json())
       .then((results) => this.setState({ items: results }));
   };
@@ -29,27 +27,26 @@ export default class Guides extends Component {
     return (
       <View style={styles.container}>
       <Swiper style={styles.wrapper} showsButtons loop={false} showsPagination={false} bounces={true}>
-        {this.state.items.map(function (guides, index) {
+        {this.state.items.map(function (cities, index) {
           return (
             <>
             
             
-            <ImageBackground source={{ uri: `${guides.image}` }}
-               style={{ width: "100%", height: 615 }}
-               >
+            <ImageBackground source={{ uri: `${cities.image}` }}
+               style={{ width: "100%", height: 615 }}>
                <Text style={{color: "#fff",
                     fontSize: 34,
                     fontWeight: "bold",
                     top: 480,
                     left: 20,
                     }}>
-                {guides.city}
+                {cities.city}
                 <Text  style={{color: "#fff",
                     fontSize: 16,
                     fontWeight: "bold",
                     top: 480,
                     left: 20,
-                    marginLeft: 10,}}>   {guides.state}</Text>
+                    marginLeft: 10,}}>   {cities.state}</Text>
                 </Text>
               <Text style={{color: "#fff",
                   fontSize: 11,
@@ -57,22 +54,10 @@ export default class Guides extends Component {
                   top: 480,
                   left: 20,
                   paddingRight: 28,}}> 
-                  {guides.description}</Text>
+                  {cities.description}</Text>
 
                   <View style={{ top: 500, left: 15}}>
-            <GradientButton
-              text="Visit"
-              textStyle={{ fontSize: 20, color: "black" }}
-              gradientBegin="#e6e6e6"
-              gradientEnd="#e6e6e6"
-              height={40}
-              width="25%"
-              radius={20}
-              impact
-              impactStyle="Light"
-              onPressAction={() => alert("You pressed me!")}
-              
-            />
+            
           </View>
             </ImageBackground>
             

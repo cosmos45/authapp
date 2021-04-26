@@ -2,13 +2,38 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, ScrollView } from "react-native";
 import {
   Dropdown,
-  
   MultiselectDropdown,
+
+
 } from 'sharingan-rn-modal-dropdown';
 
 
+const Maharashtra =[
+     {
+       value: 'Mumbai',
+       label: 'Mumbai',
+     },
+     {
+       value: 'Nashik',
+       label: 'Nashik',
+     },
+     {
+       value: 'Pune',
+       label: 'Pune',
+     },
+     {
+       value: 'Lonavala',
+       label: 'Lonavala',
+     },
+     {
+       value: 'Alibag',
+       label: 'Alibag',
+     },
+   ];
 
-const Budget = ({route}) => {
+   
+
+
    const data = [
     {
       value: 'Andra Pradesh',
@@ -157,6 +182,10 @@ const Budget = ({route}) => {
     
   ];
 
+  
+const Budget = ({route}) => {
+   
+
   const [valueMS, setValueMS] = useState([]);
   const [valueSS, setValueSS] = useState('');
 
@@ -184,18 +213,51 @@ const Budget = ({route}) => {
         onChange={onChangeSS}
       />
     </View>
-    
-        <View>
-        <Text style={styles.state} style={{marginTop:20}}>Select destinations</Text>
+    {(() => {
+
+            if (valueSS == "Assam") {
+
+              return (
+
+                <Text>You are a Admin.</Text>
+
+              )
+
+            } else if (valueSS == "Maharashtra") {
+
+              return (
+
+                 <View>
+         <Text style={styles.state} style={{marginTop:20}}>Select destinations</Text>
           <MultiselectDropdown
             label="select"
-            data={data}
+            data={Maharashtra}
             enableSearch
             chipType="outlined"
             value={valueMS}
             onChange={onChangeMS}
           />
-        </View>
+        </View> 
+
+              )
+
+            } else {
+
+              return (
+
+                <Text>You are a User.</Text>
+
+              )
+
+            }
+
+        })()}
+    
+        
+        
+
+        
+        
        
       </ScrollView>
       </View>    

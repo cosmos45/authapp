@@ -182,8 +182,7 @@ import Slider from "react-native-slider";
                 return (
                   <View>
                     <TouchableOpacity onPress={() => navigation.navigate('Postdetails',{
-                      paramKey: item.image1,
-                      paramKey1: item.title,
+                      title: item.title,
 
                      })}>
                       <ImageBackground
