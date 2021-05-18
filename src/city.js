@@ -26,7 +26,7 @@ export default class City extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons loop={false} showsPagination={false} bounces={true}>
+      <Swiper style={styles.wrapper}  showsButtons={false} loop={false} showsPagination={false} bounces={true}>
         {this.state.items.map(function (cities, index) {
           return (
             <>
@@ -37,21 +37,21 @@ export default class City extends Component {
                <Text style={{color: "#fff",
                     fontSize: 34,
                     fontWeight: "bold",
-                    top: 480,
+                    top: 400,
                     left: 20,
                     }}>
                 {cities.city}
                 <Text  style={{color: "#fff",
                     fontSize: 16,
                     fontWeight: "bold",
-                    top: 480,
+                    top: 420,
                     left: 20,
                     marginLeft: 10,}}>   {cities.state}</Text>
                 </Text>
               <Text style={{color: "#fff",
-                  fontSize: 11,
+                  fontSize: 9,
                   fontWeight: "bold",
-                  top: 480,
+                  top: 400,
                   left: 20,
                   paddingRight: 28,}}> 
                   {cities.description}</Text>

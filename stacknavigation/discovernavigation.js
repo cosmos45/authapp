@@ -7,6 +7,7 @@ import Food from "../src/food";
 import City from "../src/city";
 import Spot from "../src/spot";
 import Local from "../src/local";
+import Vision from "../src/vision";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,12 @@ const DiscoverStackNavigator = () => {
         component={Local}
         options={{ headerShown: false }}
       />
+       <Stack.Screen
+        name="Vision"
+        component={Vision}
+        options={{ headerShown: false }}
+      />
+
       
     </Stack.Navigator>
   );

@@ -1,52 +1,57 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, ScrollView, Button, ImageBackground, TouchableOpacity, } from "react-native";
 import {Text} from 'react-native-elements'
+
+const image = require("../assets/bossbot.jpg");
 
 export default class visits extends Component {
   constructor () {
     super();
     this.state = {
-      items: [],
+      
     };
   };
 
-  componentDidMount = () => {
-    this.getItems();
-  };
-
-  getItems = () => {
-    fetch("http://192.168.43.108:8000/api/item")
-      .then((results) => results.json())
-      .then((results) => this.setState({ items: results }));
-  };
-
+  
   render() {
+    const { navigation } = this.props;
+    
     return (
-      <View style={styles.container}>
-        {this.state.items.map(function (item, index) {
-          return (
-            <View style={{flex: 1}}>
-              <Text h4 key={index}>
-                {item.title}
-                {"\n"}
-                {item.description} {"\n"}
-              </Text>
-               <Image
-                source={{ uri: `${item.image}` }}
-                style={{ width: "30%", height: 50, paddingTop: 90 }}
+      <View>
+      <ScrollView>
+      <Text h5>               Have a doubt ? Ask Boosbot</Text>
+      <TouchableOpacity>
+        <ImageBackground
+            source={image}
+            style={{ width: "100%", height: 440 }}
+            imageStyle={{
+              borderBottomRightRadius: 35,
+              borderBottomLeftRadius: 35,
+            }}
+          >
+          </ImageBackground>
+      </TouchableOpacity>
+       <Button
+              buttonStyle={{width:100, alignSelf:"center", marginTop:20, color:"white"}}
+              onPress={() => navigation.navigate('Bossbot')}
+              title="Tap now"
+              titleStyle={{color:"white"}}
+              containerStyle={{color:"white"}}
+
+              accessibilityLabel="click here to make your vacation"
+              />
+        <Button
+              buttonStyle={{width:100, alignSelf:"center", marginTop:20, color:"white"}}
+              onPress={() => navigation.navigate('rating')}
+              title="Click here to review our App !"
+              titleStyle={{color:"white"}}
+              containerStyle={{color:"white"}}
+              accessibilityLabel="click here to review our app"
               />
 
-            </View>
-
-
-          );
-
-        })}
-
-
-        <Text>Visit screen</Text>
-
+        
+</ScrollView>
 
         <StatusBar style="auto" />
       </View>

@@ -26,40 +26,55 @@ export default class Local extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons loop={false} showsPagination={false} bounces={true}>
+      <Swiper style={styles.wrapper} showsButtons={false} loop={false} showsPagination={false} bounces={true}>
         {this.state.items.map(function (locals, index) {
           return (
             <>
-            
-            
-            <ImageBackground source={{ uri: `${locals.image}` }}
-               style={{ width: "100%", height: 615 }}>
-               <Text style={{color: "#fff",
-                    fontSize: 34,
+            <View style={{height: 120}}>
+            <Text style={{color: "#000",
+                    fontSize: 18,
                     fontWeight: "bold",
-                    top: 480,
-                    left: 20,
+                    top: 5,
+                    left: 10,
                     }}>
-                {locals.city}
-                <Text  style={{color: "#fff",
-                    fontSize: 16,
+                {locals.locality}</Text>
+            <Text style={{color: "#000",
+                    fontSize: 12,
                     fontWeight: "bold",
-                    top: 480,
-                    left: 20,
-                    marginLeft: 10,}}>   {locals.state}</Text>
-                </Text>
-              <Text style={{color: "#fff",
-                  fontSize: 11,
-                  fontWeight: "bold",
-                  top: 480,
-                  left: 20,
+                    top: 10,
+                    left: 10,
+                    }}>
+                {locals.city}, {locals.state}</Text>
+                
+              <Text style={{color: "#000",
+                  fontSize: 9,
+                  
+                  top: 16,
+                  left: 10,
                   paddingRight: 28,}}> 
                   {locals.description}</Text>
+                  <Text style={{color: "#000",
+                  fontSize: 11,
+                  fontWeight: "bold",
+                  top: 19,
+                  left: 8,
+                  paddingRight: 28,}}> Also find : {locals.also_find}</Text>
+            </View>
 
-                  <View style={{ top: 500, left: 15}}>
-            
-          </View>
+            <View style={{height: 490}}>
+             <ImageBackground source={{ uri: `${locals.image}` }}
+               style={{ width: "100%", height: 485, marginTop:30 }}
+               imageStyle={{
+              borderTopRightRadius: 35,
+              borderTopLeftRadius: 35,
+            }}>
+               
+
             </ImageBackground>
+            </View>
+            
+            
+           
             
             </>
 

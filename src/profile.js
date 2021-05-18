@@ -1,9 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { Actions } from "react-native-router-flux";
+import axios from "axios";
 import { StyleSheet, Text, View, ImageBackground, Button, Alert } from "react-native";
 import { CardOne, CardThree } from "react-native-card-ui";
 import { ScrollView } from "react-native-gesture-handler";
 import GradientButton from "react-native-gradient-buttons";
+import ProfilePicture from "react-native-profile-picture";
 
 const image = require("../assets/images/bg1.jpg");
 
@@ -14,6 +17,17 @@ const Separator = () => <View style={styles.separator} />;
 
 
 const profile = ({navigation}) => {
+  const handleRequest = () => {
+    // This request will only succeed if the Authorization header
+    // contains the API token
+    axios
+      .get("/auth/logout/")
+      .then((response) => {
+        axios.defaults.headers.common.Authorization = null;
+        Actions.auth();
+      })
+      .catch((error) => console.log(error));
+  };
   const gotologin = () => {
     navigation.navigate("SignIn");
   };
@@ -30,16 +44,14 @@ const profile = ({navigation}) => {
         >
           <View
             style={{
-              paddingTop: 190,
+              paddingTop: 240,
               alignItems: "center",
             }}
           >
-            <CardOne
-              height={100}
-              width={100}
-              borderRadius={55}
-              shadowColor={"white"}
-              image={pp}
+            <ProfilePicture
+              isPicture={false}
+              user="FirstName ListName"
+              shape='circular'
             />
           </View>
         </ImageBackground>
@@ -51,40 +63,21 @@ const profile = ({navigation}) => {
             alignItems: "center",
           }}
         >
-          <GradientButton
-            style={{ marginVertical: 8 }}
-            text="Sign In"
-            textStyle={{ fontSize: 14, color: "black" }}
-            gradientBegin="#e6e6e6"
-            gradientEnd="#bfbfbf"
-            gradientDirection="diagonal"
-            height={40}
-            width={110}
-            radius={20}
-            impact
-            impactStyle="Light"
-            onPressAction={gotologin}
-          />
+          
+           <View>
+                <Button
+                  title="Logout"
+                  onPress={handleRequest.bind(this)}
+                />
+               
+              </View>
         </View>
         <Separator />
-        <View style={{ paddingBottom: 10 }}>
-          <GradientButton
-            text="Personal Information"
-            textStyle={{ fontSize: 20, color: "black" }}
-            gradientBegin="#e6e6e6"
-            gradientEnd="#e6e6e6"
-            height={60}
-            width={StyleSheet.lineWidth}
-            radius={25}
-            impact
-            impactStyle="Light"
-            onPressAction={() => alert("You pressed me!")}
-          />
-        </View>
+        
         <View style={{ paddingBottom: 10 }}>
           <GradientButton
             text="Payment Options"
-            textStyle={{ fontSize: 20, color: "black" }}
+            textStyle={{ fontSize: 14, color: "black" }}
             gradientBegin="#cfcfcf"
             gradientEnd="#cfcfcf"
             height={60}
@@ -98,7 +91,7 @@ const profile = ({navigation}) => {
         <View style={{ paddingBottom: 10 }}>
           <GradientButton
             text="FeedBack"
-            textStyle={{ fontSize: 20, color: "black" }}
+            textStyle={{ fontSize: 14, color: "black" }}
             gradientBegin="#b8b8b8"
             gradientEnd="#b8b8b8"
             height={60}
@@ -112,7 +105,7 @@ const profile = ({navigation}) => {
         <View style={{ paddingBottom: 10 }}>
           <GradientButton
             text="Terms and Services"
-            textStyle={{ fontSize: 20, color: "black" }}
+            textStyle={{ fontSize: 14, color: "black" }}
             gradientBegin="#a1a1a1"
             gradientEnd="#a1a1a1"
             height={60}

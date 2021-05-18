@@ -95,7 +95,7 @@ export default class App extends Component {
     var that = this;
     setTimeout(function () {
       that.Hide_Splash_Screen();
-    }, 10);
+    }, 5000);
   }
 
   render() {
@@ -109,15 +109,13 @@ export default class App extends Component {
         </View>
       </View>
     );  
-    return (
-      [
-      
+    return [
       <NavigationContainer>
         {this.state.isVisible === true ? Splash_Screen : null}
-        <MyTabs />
+        <Router />
+
       </NavigationContainer>,
-    ]
-    );
+    ];
     
       
     
@@ -133,4 +131,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-

@@ -5,7 +5,7 @@ import {Text} from 'react-native-elements';
 import Swiper from "react-native-swiper";
 import GradientButton from "react-native-gradient-buttons";
 
-export default class Food extends Component {
+export default class Local extends Component {
   constructor () {
     super();
     this.state = {
@@ -26,40 +26,57 @@ export default class Food extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons loop={false} showsPagination={false} bounces={true}>
+      <Swiper style={styles.wrapper}  showsButtons={false} loop={false} showsPagination={false} bounces={true}>
         {this.state.items.map(function (food, index) {
           return (
             <>
             
             
             <ImageBackground source={{ uri: `${food.image}` }}
-               style={{ width: undefined, height:undefined ,}}
-               resizeMode={"contain"}>
-               <Text style={{color: "#fff",
-                    fontSize: 34,
+               style={{ width: "100%", height: 375,  }}
+               imageStyle={{
+              borderBottomRightRadius: 35,
+              borderBottomLeftRadius: 35,
+            }}>
+               <Text style={{color: "#000",
+                    fontSize: 25,
                     fontWeight: "bold",
-                    top: 480,
+                    top: 380,
                     left: 20,
                     }}>
-                {food.city}
-                <Text  style={{color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    top: 480,
-                    left: 20,
-                    marginLeft: 10,}}>   {food.state}</Text>
+                {food.restaurant}
+               
                 </Text>
-              <Text style={{color: "#fff",
+                
+                 <Text  style={{color: "#3d403d",
+                    fontSize: 10,
+                    fontWeight: "bold",
+                    top: 382,
+                    left: 14,
+                    }}>  {food.city}, {food.state}</Text>
+                     <Text  style={{color: "#000",
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    top: 387,
+                    left: 16,
+                    }}> Cost for 2 - {food.cost_for_2}</Text>
+                    <Text  style={{color: "#000",
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    top: 388,
+                    left: 16,
+                    }}> Must Try - {food.must_try}</Text>
+              <Text style={{color: "#000",
                   fontSize: 11,
-                  fontWeight: "bold",
-                  top: 480,
+                  
+                  top: 390,
                   left: 20,
                   paddingRight: 28,}}> 
                   {food.description}</Text>
+                  
 
-                  <View style={{ top: 500, left: 15}}>
-            
-          </View>
+                 
+          
             </ImageBackground>
             
             </>

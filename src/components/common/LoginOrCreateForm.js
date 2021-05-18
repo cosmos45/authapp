@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import { Button, View, Text, TextInput, StyleSheet } from "react-native";
+import { Button, View, Text, TextInput, StyleSheet,ImageBackground, } from "react-native";
 import { Actions } from "react-native-router-flux";
 import axios from "axios";
+
+
+const image = require("../../../assets/images/loginbg2.jpg");
+
+const image1 = require("../../../assets/signup.jpg");
 
 class LoginOrCreateForm extends Component {
   state = {
@@ -9,6 +14,7 @@ class LoginOrCreateForm extends Component {
     password: "",
     firstName: "",
     lastName: "",
+    email: "",
   };
 
   onUsernameChange(text) {
@@ -26,6 +32,22 @@ class LoginOrCreateForm extends Component {
   onLastNameChange(text) {
     this.setState({ lastName: text });
   }
+  onEmailChange(text) {
+    const {password} = this.state;
+    alert(password);
+    let reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (reg.test(password) === false) {
+      alert("Invalid Email format");
+      this.setState({ email: password });
+      return false;
+    } else {
+      this.setState({ email: password });
+      console.log("Email is Correct");
+    }
+          // this.setState({ email: text });
+
+
+  }
 
   handleRequest() {
     const endpoint = this.props.create ? "register" : "login";
@@ -37,6 +59,7 @@ class LoginOrCreateForm extends Component {
     if (this.props.create) {
       payload.first_name = this.state.firstName;
       payload.last_name = this.state.lastName;
+      payload.email = this.state.email;
     }
     console.log(payload);
 
@@ -50,27 +73,55 @@ class LoginOrCreateForm extends Component {
 
         // Navigate to the home screen
         Actions.main();
-      })
-      .catch((error) => console.log(error));
+      })    
+
+
+      .catch((error) => alert("Invalid username or password"));
   }
 
   renderCreateForm() {
     const { fieldStyle, textInputStyle } = styles;
     if (this.props.create) {
       return (
-        <View style={fieldStyle}>
-          <TextInput
-            placeholder="First name"
-            autoCorrect={false}
-            onChangeText={this.onFirstNameChange.bind(this)}
-            style={textInputStyle}
-          />
-          <TextInput
-            placeholder="Last name"
-            autoCorrect={false}
-            onChangeText={this.onLastNameChange.bind(this)}
-            style={textInputStyle}
-          />
+        <View style={styles.formContainerStyle}>
+       
+            <View style={{backgroundColor:"rgba(0,0,0,0.0)", width:"100%", marginTop:10}}>
+            <View style={fieldStyle}>
+             <TextInput
+                  placeholder="First name"
+                  placeholderTextColor="#fff"
+                  autoCorrect={false}
+                  onChangeText={this.onFirstNameChange.bind(this)}
+                  style={styles.inputStyle1}
+                />
+                </View>
+                <View style={fieldStyle}>
+                <TextInput
+                  placeholder="Last name"
+                  placeholderTextColor="#fff"
+                  autoCorrect={false}
+                  onChangeText={this.onLastNameChange.bind(this)}
+                  style={styles.inputStyle1}
+                />
+                </View>
+                <View style={fieldStyle}>
+                <TextInput
+                  placeholder="email"
+                  placeholderTextColor="#fff"
+                  autoCorrect={false}
+                  style={styles.inputStyle1}
+                  ref={ref => (this.passwordInput = ref)}
+                  value={this.state.password}
+                  onChangeText={password => this.setState({password})}
+                  onSubmitEditing={this.onEmailChange.bind(this)}
+                />
+                </View>
+            </View>
+               
+              
+           
+          
+          
         </View>
       );
     }
@@ -109,10 +160,16 @@ class LoginOrCreateForm extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+      <ImageBackground
+            source={image}
+            style={{ width: "100%", height: 615 }}
+            
+          >
         <View style={formContainerStyle}>
           <View style={fieldStyle}>
             <TextInput
-              placeholder="username"
+              placeholder="username"              
+              placeholderTextColor="#fff" 
               autoCorrect={false}
               autoCapitalize="none"
               onChangeText={this.onUsernameChange.bind(this)}
@@ -124,7 +181,8 @@ class LoginOrCreateForm extends Component {
               secureTextEntry
               autoCapitalize="none"
               autoCorrect={false}
-              placeholder="password"
+              placeholder="password"             
+              placeholderTextColor="#fff" 
               onChangeText={this.onPasswordChange.bind(this)}
               style={styles.inputStyle}
             />
@@ -137,6 +195,7 @@ class LoginOrCreateForm extends Component {
             {this.renderCreateLink()}
           </View>
         </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -148,15 +207,34 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    marginTop:30,
   },
   
   inputStyle: {
-    width: "100%",
+    width: "60%",
+    height: 50,
     marginBottom: 15,
     paddingBottom: 15,
     alignSelf: "center",
-    borderColor: "#ccc",
-    borderBottomWidth: 1,
+    backgroundColor: 'rgba(242, 255, 251, 0.1)',
+    borderRadius:25,
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop:10,
+    color:"white",
+  },
+  inputStyle1: {
+    width: "75%",
+    height: 50,
+    marginBottom: 15,
+    paddingBottom: 15,
+    alignSelf: "center",
+    backgroundColor: 'rgba(242, 255, 251, 0.1)',
+    borderRadius:25,
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop:10,
+    color:"white",
   },
   fieldStyle: {
     flexDirection: "row",
@@ -166,6 +244,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 25,
+    width: "75%",
+    borderRadius: 55,
+    alignSelf:"center",
   },
   accountCreateTextStyle: {
     color: "black",

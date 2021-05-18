@@ -17,13 +17,15 @@ import { Feather } from "react-native-vector-icons";
 
 const discover = ({navigation}) => {
 
+const hotel = require("../assets/places1.png");
+
 const explore = [
   {
     name: "Guides",
     image2: require("../assets/explore/guides1.jpg"),
   },
   {
-    name: "Countries and Cities",
+    name: "States and Cities",
     image2: require("../assets/explore/country.jpg"),
   },
   {
@@ -38,13 +40,32 @@ const explore = [
     name: "Spots",
     image2: require("../assets/explore/spots.jpg"),
   },
+  {
+    name: "Spots",
+    image2: require("../assets/explore/spots.jpg"),
+  },
+   {
+    name: "Spots",
+  },
+  
   
 ];
   return (
     <View>
+    <View style={{marginBottom: 10}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Vision')}>
+        <ImageBackground
+            source={hotel}
+            style={{ width: "100%", height: 170 }}
+            
+          ></ImageBackground> 
+        </TouchableOpacity>
+  </View>
       <ScrollView>
+      
         
         <View style={styles.scroll}>
+        
           <FlatList
             vertical={true}
             showsHorizontalScrollIndicator={false}
@@ -52,9 +73,10 @@ const explore = [
             renderItem={({ item }) => {
               return (
                 <View>
+                
                   <TouchableOpacity
                     style={{
-                      paddingTop: 10,
+                      paddingTop: 5,
                     }}
 
                     onPress={ () => {
@@ -126,7 +148,7 @@ const styles = StyleSheet.create({
   scroll: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 40,
+    paddingTop: 5,
   },
   name:{
     fontSize: 18,
@@ -135,7 +157,36 @@ const styles = StyleSheet.create({
     
 
 
-  }
+  },
+  hotel:{
+        fontSize: 41,
+        fontWeight: "bold",
+        color: "white",
+        
+        textAlign:"center",
+        top:35
+
+              },
+  UserGreet3: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: "white",
+        marginRight:20,
+        marginLeft:20,
+        marginTop: 2,
+        textAlign: "center",
+                
+              },
+  square2: {
+                margin: 10,
+                marginTop: 30,
+                width: 155,
+                height: 200,
+                backgroundColor: "#000",
+                borderRadius: 25,
+                
+              },
+
 });
 
 export default discover;
